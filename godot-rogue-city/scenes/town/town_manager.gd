@@ -49,3 +49,14 @@ func position_preview(pos: Vector3):
 
 func rotate_preview(deg: float):
 	preview_container.rotation.y += deg
+
+func get_mesh(packed_scene):
+	var scene_state:SceneState = packed_scene.get_state()
+	for i in range(scene_state.get_node_count()):
+		if(scene_state.get_node_type(i) == "MeshInstance3D"):
+			for j in scene_state.get_node_property_count(i):
+				var prop_name = scene_state.get_node_property_name(i, j)
+				if prop_name == "mesh":
+					var prop_value = scene_state.get_node_property_value(i, j)
+					
+					return prop_value.duplicate()
