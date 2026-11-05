@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://8f6pvnc6nu1e"]
+
+[ext_resource type="Script" uid="uid://myu4hyd0a0vu" path="res://scenes/town/town_manager.gd" id="1_vshnw"]
+
+[node name="Main" type="Node3D" unique_id=1812321022]
+
+[node name="TownManager" type="Node" parent="." unique_id=152336717]
+script = ExtResource("1_vshnw")
+
+[node name="Structures" type="Node3D" parent="." unique_id=512387966]
+
+[node name="Preview" type="Node3D" parent="." unique_id=493244201]
+
+[node name="Container" type="Node3D" parent="Preview" unique_id=1642855314]
