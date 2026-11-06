@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 	
 	update_camera_smooth(delta)
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("camera_rotation_toggle") and event is InputEventMouseMotion:
 		rotate_camera(event.relative)
 	

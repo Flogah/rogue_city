@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" uid="uid://myu4hyd0a0vu" path="res://scenes/town/town_manager.gd" id="1_vshnw"]
 [ext_resource type="Script" uid="uid://c4f21v2njmps0" path="res://scripts/town_data/structure.gd" id="3_3usxy"]
+[ext_resource type="Script" uid="uid://dkad3rj7dyab6" path="res://scenes/town/town_ui.gd" id="3_dq2aj"]
+[ext_resource type="PackedScene" uid="uid://bjdn5xh4qkexu" path="res://scenes/town/structure_button.tscn" id="3_jyo67"]
 [ext_resource type="Texture2D" uid="uid://brjcxe8mu4ml8" path="res://assets/textures/ProtoTex/Dark/texture_03.png" id="3_rr1kx"]
 [ext_resource type="Texture2D" uid="uid://ccfq2eyl5m7jq" path="res://assets/textures/ProtoTex/Orange/texture_04.png" id="4_3usxy"]
+[ext_resource type="Resource" uid="uid://bacbep3a5umuw" path="res://scenes/town/example_structures/bad_house.tres" id="4_fqux8"]
 [ext_resource type="Script" uid="uid://dkqfx2tygnc0o" path="res://scripts/town_view_controller.gd" id="5_au723"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ifpyu"]
@@ -37,8 +40,47 @@ structures_parent = NodePath("../Structures")
 preview_container = NodePath("../Preview/Container")
 preview_node = NodePath("../Preview")
 structure_inventory = Dictionary[ExtResource("3_3usxy"), int]({
-null: 0
+ExtResource("4_fqux8"): 3
 })
+
+[node name="TownUI" type="CanvasLayer" parent="." unique_id=2045560409 node_paths=PackedStringArray("struct_button_container", "town_manager")]
+script = ExtResource("3_dq2aj")
+struct_button_container = NodePath("Control/StructButtonContainer")
+test_button_struct = ExtResource("4_fqux8")
+button_template = ExtResource("3_jyo67")
+town_manager = NodePath("../TownManager")
+
+[node name="Control" type="Control" parent="TownUI" unique_id=1503074314]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StructButtonContainer" type="HBoxContainer" parent="TownUI/Control" unique_id=1313233528]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -113.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="TownUI/Control" unique_id=1574286541]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 34.0
+offset_right = 373.0
+offset_bottom = 193.0
+text = "WASD - Kamera Bewegen
+Mausrad klick - Kamera Winkel
+Mausrad drehen - Zoom
+Linksklick - Gebäude auswählen und setzen
+Rechtsklick - Bau abbrechen
+QE - Gebäude drehen"
 
 [node name="Structures" type="Node3D" parent="." unique_id=512387966]
 

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bjdn5xh4qkexu"]
+
+[ext_resource type="Script" uid="uid://g4jaq2em51nq" path="res://scenes/town/structure_button.gd" id="1_356bt"]
+[ext_resource type="Resource" uid="uid://bacbep3a5umuw" path="res://scenes/town/example_structures/bad_house.tres" id="2_el3w2"]
+
+[node name="Button" type="Button" unique_id=1538501222 node_paths=PackedStringArray("structure_preview_image", "structure_label")]
+custom_minimum_size = Vector2(120, 0)
+script = ExtResource("1_356bt")
+structure = ExtResource("2_el3w2")
+structure_preview_image = NodePath("MarginContainer/VBoxContainer/StructurePreviewImage")
+structure_label = NodePath("MarginContainer/VBoxContainer/StructureLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=9332451]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1143089972]
+layout_mode = 2
+
+[node name="StructurePreviewImage" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1912006198]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+expand_mode = 2
+stretch_mode = 5
+
+[node name="StructureLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1501391436]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Example 1"
+horizontal_alignment = 1

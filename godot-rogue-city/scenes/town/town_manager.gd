@@ -18,11 +18,12 @@ var built_structures_dict: Dictionary[Transform3D, Structure]
 func _ready() -> void:
 	reload_structures()
 
-func build_structure(target_transform: Transform3D, target_structure:Structure):
+func build_structure(target_structure:Structure, target_transform: Transform3D = preview_node.transform):
 	var struct_instance:Node3D = target_structure.model.instantiate()
 	structures_parent.add_child(struct_instance)
 	struct_instance.transform = target_transform
 	built_structures_dict[target_transform] = target_structure
+	update_preview()
 
 func demolish_structure(target_structure:Node3D):
 	if built_structures_dict.has(target_structure.transform):
@@ -35,12 +36,13 @@ func reload_structures():
 		child.queue_free()
 	for trans:Transform3D in built_structures_dict:
 		var target_structure: Structure = built_structures_dict.get(trans)
-		build_structure(trans, target_structure)
+		build_structure(target_structure, trans)
 
-func update_preview(struct: Structure):
+func update_preview(struct: Structure = null):
 	for child in preview_container.get_children():
 		preview_container.remove_child(child)
 		child.queue_free()
+	if !struct: return
 	var new_preview:Node3D = struct.model.instantiate()
 	preview_container.add_child(new_preview)
 
@@ -48,7 +50,7 @@ func position_preview(pos: Vector3):
 	preview_node.global_position = pos
 
 func rotate_preview(deg: float):
-	preview_container.rotation.y += deg
+	preview_node.rotation_degrees.y += deg
 
 func get_mesh(packed_scene):
 	var scene_state:SceneState = packed_scene.get_state()
