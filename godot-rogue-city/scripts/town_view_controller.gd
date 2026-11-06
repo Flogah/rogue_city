@@ -54,7 +54,7 @@ func move_camera(input: Vector3):
 	camera_position += scaled_move
 
 func zoom_camera(input: float) -> void:
-	camera_zoom += input * 2.0
+	camera_zoom += input * 10.0 * (camera_zoom/100.0)
 	camera_zoom = clampf(camera_zoom, 0.0, 100.0)
 
 func update_camera_smooth(delta:float):
