@@ -14,6 +14,11 @@ config/name="godot_rogue_city"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+CameraHelper="*uid://gbjclhm162lp"
+Draw3d="*uid://df8qed18kwulx"
+
 [display]
 
 window/stretch/mode="canvas_items"
