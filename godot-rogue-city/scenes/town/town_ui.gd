@@ -22,17 +22,22 @@ func _process(delta: float) -> void:
 			town_manager.update_preview()
 			selected_struct = null
 		
-		if Input.is_action_pressed("rotate_structure_left"):
-			town_manager.rotate_preview(1.0)
-		if Input.is_action_pressed("rotate_structure_right"):
-			town_manager.rotate_preview(-1.0)
+		if Input.is_action_pressed("toggle_snapping"):
+			if Input.is_action_just_pressed("rotate_structure_left"):
+				town_manager.rotate_preview_snapped(45.0)
+			if Input.is_action_just_pressed("rotate_structure_right"):
+				town_manager.rotate_preview_snapped(-45.0)
+		else:
+			if Input.is_action_pressed("rotate_structure_left"):
+				town_manager.rotate_preview(1.5)
+			if Input.is_action_pressed("rotate_structure_right"):
+				town_manager.rotate_preview(-1.5)
 
 func _input(event: InputEvent) -> void:
 	if selected_struct:
 		if event.is_action_pressed("confirm"):
 			town_manager.build_structure(selected_struct)
 			selected_struct = null
-
 
 func load_structure_inventory():
 	for struct in town_manager.structure_inventory:

@@ -52,6 +52,10 @@ func position_preview(pos: Vector3):
 func rotate_preview(deg: float):
 	preview_node.rotation_degrees.y += deg
 
+func rotate_preview_snapped(deg: float):
+	rotate_preview(deg)
+	preview_node.rotation_degrees.y = snappedf(preview_node.rotation_degrees.y, 45.0)
+
 func get_mesh(packed_scene):
 	var scene_state:SceneState = packed_scene.get_state()
 	for i in range(scene_state.get_node_count()):
