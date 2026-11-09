@@ -49,6 +49,10 @@ func update_preview(struct: Structure = null):
 func position_preview(pos: Vector3):
 	preview_node.global_position = pos
 
+func position_preview_snapped(pos: Vector3):
+	position_preview(pos)
+	preview_node.global_position = preview_node.global_position.snapped(Vector3.ONE)
+
 func rotate_preview(deg: float):
 	preview_node.rotation_degrees.y += deg
 

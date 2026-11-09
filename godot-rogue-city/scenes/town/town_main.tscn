@@ -43,11 +43,12 @@ structure_inventory = Dictionary[ExtResource("3_3usxy"), int]({
 ExtResource("4_fqux8"): 3
 })
 
-[node name="TownUI" type="CanvasLayer" parent="." unique_id=2045560409 node_paths=PackedStringArray("struct_button_container", "town_manager")]
+[node name="TownUI" type="CanvasLayer" parent="." unique_id=2045560409 node_paths=PackedStringArray("struct_button_container", "grid_label", "town_manager")]
 script = ExtResource("3_dq2aj")
 struct_button_container = NodePath("Control/StructButtonContainer")
 test_button_struct = ExtResource("4_fqux8")
 button_template = ExtResource("3_jyo67")
+grid_label = NodePath("Control/GridLabel")
 town_manager = NodePath("../TownManager")
 
 [node name="Control" type="Control" parent="TownUI" unique_id=1503074314]
@@ -80,7 +81,16 @@ Mausrad klick - Kamera Winkel
 Mausrad drehen - Zoom
 Linksklick - Gebäude auswählen und setzen
 Rechtsklick - Bau abbrechen
-QE - Gebäude drehen"
+QE - Gebäude drehen
+STRG - Umschalten zu Grid-Angleichung"
+
+[node name="GridLabel" type="Label" parent="TownUI/Control" unique_id=588547796]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 221.0
+offset_right = 130.0
+offset_bottom = 247.0
+text = "GRID : AUS"
 
 [node name="Structures" type="Node3D" parent="." unique_id=512387966]
 
