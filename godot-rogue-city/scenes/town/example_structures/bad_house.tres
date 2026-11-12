@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Structure" format=3 uid="uid://bacbep3a5umuw"]
+
+[ext_resource type="PackedScene" uid="uid://bvsed4ve2sshv" path="res://scenes/town/example_structures/house.tscn" id="1_k574h"]
+[ext_resource type="Script" uid="uid://c4f21v2njmps0" path="res://scripts/town_data/structure.gd" id="2_0en70"]
+[ext_resource type="Texture2D" uid="uid://b8lngtukdc211" path="res://assets/textures/Sprites/BadHouse.png" id="3_0en70"]
+
+[resource]
+script = ExtResource("2_0en70")
+s_name = "Bad House"
+model = ExtResource("1_k574h")
+ui_image = ExtResource("3_0en70")
+metadata/_custom_type_script = "uid://c4f21v2njmps0"
