@@ -12,31 +12,21 @@ extends Node
 @export var structure_inventory: Dictionary[Structure, int]
 
 # a list of the actually built structures as a dictionary
-# listed by position and individual structure
-var built_structures_dict: Dictionary[Transform3D, Structure]
-
-func _ready() -> void:
-	reload_structures()
+# listed by Node3D (every structure has a unique node) and underlying structure.res
+# this should make it possible to access all relevant gameplay code of existing structures
+var built_structures_dict: Dictionary[Node3D, Structure]
 
 func build_structure(target_structure:Structure, target_transform: Transform3D = preview_node.transform):
 	var struct_instance:Node3D = target_structure.model.instantiate()
 	structures_parent.add_child(struct_instance)
 	struct_instance.transform = target_transform
-	built_structures_dict[target_transform] = target_structure
+	built_structures_dict[struct_instance] = target_structure
 	update_preview()
 
 func demolish_structure(target_structure:Node3D):
-	if built_structures_dict.has(target_structure.transform):
-		built_structures_dict.erase(target_structure.transform)
+	if built_structures_dict.has(target_structure):
+		built_structures_dict.erase(target_structure)
 	target_structure.queue_free()
-
-func reload_structures():
-	for child:Node in structures_parent.get_children():
-		structures_parent.remove_child(child)
-		child.queue_free()
-	for trans:Transform3D in built_structures_dict:
-		var target_structure: Structure = built_structures_dict.get(trans)
-		build_structure(target_structure, trans)
 
 func update_preview(struct: Structure = null):
 	for child in preview_container.get_children():
@@ -60,6 +50,24 @@ func rotate_preview_snapped(deg: float):
 	rotate_preview(deg)
 	preview_node.rotation_degrees.y = snappedf(preview_node.rotation_degrees.y, 45.0)
 
+# i want to be able to save the built_structures_dict and then build it
+# probably needs a helper data structure
+
+#func backup_structures():
+	#for child:Node in structures_parent.get_children():
+		# save it in external data
+
+#func reload_structures():
+	#for child:Node in structures_parent.get_children():
+		#structures_parent.remove_child(child)
+		#child.queue_free()
+	# load up the external data
+	# for struct in external data:
+		# build_structure(struct)
+
+# to extract just the mesh from a scene
+# could be useful for preview stuff
+# with a stylish shader on top
 func get_mesh(packed_scene):
 	var scene_state:SceneState = packed_scene.get_state()
 	for i in range(scene_state.get_node_count()):

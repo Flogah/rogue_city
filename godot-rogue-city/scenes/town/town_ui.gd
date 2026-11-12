@@ -49,6 +49,11 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("toggle_snapping"):
 			snapping = !snapping
 			snapping_toggled.emit(snapping)
+	else:
+		if event.is_action_pressed("confirm"):
+			var collider = CameraHelper.get_projected_mouse_collider()
+			if town_manager.built_structures_dict.has(collider.get_parent()):
+				town_manager.demolish_structure(collider.get_parent())
 
 func load_structure_inventory():
 	for struct in town_manager.structure_inventory:
