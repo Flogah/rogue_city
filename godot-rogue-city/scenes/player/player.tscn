@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bstuopf64qqxq"]
+
+[ext_resource type="Script" uid="uid://bi153wqibfwro" path="res://scenes/player/player.gd" id="1_dovo2"]
+[ext_resource type="PackedScene" uid="uid://dea12upbo0lts" path="res://scenes/camera/camera_arm.tscn" id="2_gmlin"]
+[ext_resource type="Script" uid="uid://bndffillcldh1" path="res://scripts/state_machine/state_machine.gd" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://de3y4eoyviinr" path="res://scenes/player/move_state.gd" id="4_p47bc"]
+[ext_resource type="Script" uid="uid://1phya3lnwvos" path="res://scenes/player/rolling.gd" id="5_p47bc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xgnvx"]
+radius = 0.2841797
+height = 1.7642212
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xgnvx"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="PrismMesh" id="PrismMesh_xgnvx"]
+size = Vector3(0.3, 0.6, 0.3)
+
+[node name="Player" type="CharacterBody3D" unique_id=1494987689]
+collision_layer = 2
+script = ExtResource("1_dovo2")
+
+[node name="Camera_Arm" parent="." unique_id=1807282293 instance=ExtResource("2_gmlin")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.554864, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=686471291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8778564, 0)
+shape = SubResource("CapsuleShape3D_xgnvx")
+
+[node name="Mesh" type="Node3D" parent="." unique_id=2088496810]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh" unique_id=1304950828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8949837, 0)
+mesh = SubResource("CapsuleMesh_xgnvx")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh" unique_id=1141002807]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.5875686, -0.29023463)
+mesh = SubResource("PrismMesh_xgnvx")
+
+[node name="MovementStateMachine" type="Node" parent="." unique_id=1450202359 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_lvxji")
+initial_state = NodePath("Moving")
+
+[node name="Moving" type="Node" parent="MovementStateMachine" unique_id=92557771 node_paths=PackedStringArray("player")]
+script = ExtResource("4_p47bc")
+player = NodePath("../..")
+
+[node name="Rolling" type="Node" parent="MovementStateMachine" unique_id=1717503852 node_paths=PackedStringArray("player", "stamina_comp")]
+script = ExtResource("5_p47bc")
+player = NodePath("../..")
+stamina_comp = NodePath("")

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dea12upbo0lts"]
+
+[ext_resource type="Script" uid="uid://ds6h5c5xw3cn0" path="res://scenes/Camera/camera_arm.gd" id="1_2j8ar"]
+[ext_resource type="Script" uid="uid://bq3pwkp24upfk" path="res://scenes/Camera/camera_3d.gd" id="2_f1xkd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rcbd0"]
+
+[node name="Camera_Arm" type="Node3D" unique_id=1807282293]
+script = ExtResource("1_2j8ar")
+min_vertical_angle = -1.3089969389957472
+max_vertical_angle = 0.2617993877991494
+
+[node name="CameraArm" type="SpringArm3D" parent="." unique_id=455579097]
+unique_name_in_owner = true
+shape = SubResource("SphereShape3D_rcbd0")
+spring_length = 5.0
+
+[node name="SpringPosition" type="Node3D" parent="CameraArm" unique_id=278545761]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=391696568 node_paths=PackedStringArray("target_position")]
+script = ExtResource("2_f1xkd")
+target_position = NodePath("../CameraArm/SpringPosition")
