@@ -1,6 +1,10 @@
 extends State
 
 @export var player: Player
+@export var animation_player: AnimationPlayer
+
+func enter_state(_data: Dictionary = {}) -> void:
+	animation_player.play("RESET")
 
 func update(delta: float) -> void:
 	if !player:
@@ -24,3 +28,5 @@ func update(delta: float) -> void:
 	if Input.is_action_just_pressed("roll") and player.is_on_floor():
 		switch_state.emit("Rolling", { direction = move_vector })
 		#print(input_vector)
+	if Input.is_action_just_pressed("attack"):
+		switch_state.emit("attack1")
