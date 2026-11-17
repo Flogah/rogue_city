@@ -19,9 +19,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotation.x = clamp(rotation.x, min_vertical_angle, max_vertical_angle)
 		
 	
-	if event.is_action_pressed("zoom_in"):
+	if event.is_action_pressed("camera_zoom_in"):
 		camera_arm.spring_length -= 1
-	if event.is_action_pressed("zoom_out"):
+	if event.is_action_pressed("camera_zoom_out"):
 		camera_arm.spring_length += 1
 	
 	if event.is_action_pressed("toggle_mouse_capture"):
