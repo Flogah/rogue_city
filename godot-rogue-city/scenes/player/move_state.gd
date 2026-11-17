@@ -29,4 +29,5 @@ func update(delta: float) -> void:
 		switch_state.emit("Rolling", { direction = move_vector })
 		#print(input_vector)
 	if Input.is_action_just_pressed("attack"):
+		player.velocity = Vector3.ZERO
 		switch_state.emit("attack1")
