@@ -6,7 +6,7 @@ func update(delta: float) -> void:
 	if !player:
 		return
 	
-	var input_vector: Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	var input_vector: Vector2 = Input.get_vector("player_move_left", "player_move_right", "player_move_forward", "player_move_back")
 	var forward: Vector3 = -player.camera_arm.global_transform.basis.z
 	forward.y = 0.0
 	forward = forward.normalized()
