@@ -48,7 +48,6 @@ initial_state = NodePath("Moving")
 script = ExtResource("4_p47bc")
 player = NodePath("../..")
 
-[node name="Rolling" type="Node" parent="MovementStateMachine" unique_id=1717503852 node_paths=PackedStringArray("player", "stamina_comp")]
+[node name="Rolling" type="Node" parent="MovementStateMachine" unique_id=1717503852 node_paths=PackedStringArray("player")]
 script = ExtResource("5_p47bc")
 player = NodePath("../..")
-stamina_comp = NodePath("")
