@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Structure" format=3 uid="uid://bj2j8fd0fcerr"]
+
+[ext_resource type="PackedScene" uid="uid://c2j33oabhkxkw" path="res://scenes/town/example_structures/lamp.tscn" id="1_3ljbg"]
+[ext_resource type="Script" uid="uid://c4f21v2njmps0" path="res://scripts/town_data/structure.gd" id="2_vgmcu"]
+[ext_resource type="Texture2D" uid="uid://byswrvnltg2tv" path="res://assets/textures/Sprites/BadLamp.png" id="3_ldtr3"]
+
+[resource]
+script = ExtResource("2_vgmcu")
+s_name = "Bad Lamp"
+model = ExtResource("1_3ljbg")
+ui_image = ExtResource("3_ldtr3")
+metadata/_custom_type_script = "uid://c4f21v2njmps0"

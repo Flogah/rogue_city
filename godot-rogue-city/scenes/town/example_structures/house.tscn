@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://bvsed4ve2sshv"]
 
+[ext_resource type="Script" uid="uid://ddqdt7d3by6ss" path="res://scripts/town_data/structure_collision.gd" id="1_3ar0w"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_ifpyu"]
 size = Vector3(2, 2, 2.5)
 
@@ -17,36 +19,57 @@ size = Vector3(2, 2, 2.5)
 radius = 0.32470703
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ckr0i"]
-size = Vector3(4.227661, 3.196289, 2.6083984)
+size = Vector3(3.348297, 3.196289, 2.5596008)
 
-[node name="House" type="Node3D" unique_id=1026652301]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ifpyu"]
+height = 7.0
+radius = 6.0
+
+[node name="House" type="Node3D" unique_id=1026652301 node_paths=PackedStringArray("positioning_area", "visual", "static_collision", "influence_area")]
+script = ExtResource("1_3ar0w")
+positioning_area = NodePath("PositioningArea")
+visual = NodePath("Visual")
+static_collision = NodePath("StaticBody3D")
+influence_area = NodePath("InfluenceArea")
 
 [node name="Visual" type="Node3D" parent="." unique_id=1710704316]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=779029270]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6749916, 1, 0)
 mesh = SubResource("BoxMesh_ifpyu")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Visual" unique_id=1619710220]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.68433416, 2.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009342551, 2.5, 0)
 mesh = SubResource("PrismMesh_563wa")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Visual" unique_id=1047826192]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3250084, 1, 0)
 mesh = SubResource("CylinderMesh_ckr0i")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1204571289]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=617005651]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6749916, 1, 0)
 shape = SubResource("BoxShape3D_ifpyu")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=1493566044]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3250084, 1, 0)
 shape = SubResource("CylinderShape3D_ckr0i")
 
 [node name="PositioningArea" type="Area3D" parent="." unique_id=634258530]
+collision_layer = 256
+collision_mask = 256
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PositioningArea" unique_id=1809801032]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7241821, 1.5981445, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0041999817, 1.5981445, -0.024398804)
 shape = SubResource("BoxShape3D_ckr0i")
+
+[node name="InfluenceArea" type="Area3D" parent="." unique_id=591105400]
+collision_layer = 512
+collision_mask = 512
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InfluenceArea" unique_id=56772789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1770926, 0)
+shape = SubResource("CylinderShape3D_ifpyu")
