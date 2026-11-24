@@ -12,6 +12,7 @@ signal structure_selected(structure: Structure)
 @export var town_manager: TownManager
 
 var selected_struct: Structure
+var current_preview_struct: StructureCollision
 var snapping = false
 
 func _ready() -> void:
@@ -43,7 +44,7 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if selected_struct:
-		if event.is_action_pressed("confirm"):
+		if event.is_action_pressed("confirm") and !current_preview_struct.is_overlapping():
 			town_manager.build_structure(selected_struct)
 			selected_struct = null
 		if event.is_action_pressed("toggle_snapping"):
@@ -60,14 +61,15 @@ func load_structure_inventory():
 		create_button(struct)
 
 func create_button(structure: Structure):
-	var new_button = button_template.instantiate()
+	var new_button:StructureButton = button_template.instantiate()
+	new_button.structure = structure
 	struct_button_container.add_child(new_button)
 	#new_button.pressed.connect(func(): structure_selected.emit(structure))
 	new_button.pressed.connect(on_structure_selected.bind(structure))
 
 func on_structure_selected(structure: Structure) -> void:
 	selected_struct = structure
-	town_manager.update_preview(structure)
+	current_preview_struct = town_manager.update_preview(structure)
 
 func on_snapping_toggled(new_value: bool) -> void:
 	if new_value:

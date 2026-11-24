@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://brjcxe8mu4ml8" path="res://assets/textures/ProtoTex/Dark/texture_03.png" id="3_rr1kx"]
 [ext_resource type="Texture2D" uid="uid://ccfq2eyl5m7jq" path="res://assets/textures/ProtoTex/Orange/texture_04.png" id="4_3usxy"]
 [ext_resource type="Resource" uid="uid://bacbep3a5umuw" path="res://scenes/town/example_structures/bad_house.tres" id="4_fqux8"]
+[ext_resource type="Resource" uid="uid://bj2j8fd0fcerr" path="res://scenes/town/example_structures/bad_lamp.tres" id="4_qi7q3"]
 [ext_resource type="Script" uid="uid://dkqfx2tygnc0o" path="res://scripts/town_view_controller.gd" id="5_au723"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ifpyu"]
@@ -40,6 +41,7 @@ structures_parent = NodePath("../Structures")
 preview_container = NodePath("../Preview/Container")
 preview_node = NodePath("../Preview")
 structure_inventory = Dictionary[ExtResource("3_3usxy"), int]({
+ExtResource("4_qi7q3"): 3,
 ExtResource("4_fqux8"): 3
 })
 
