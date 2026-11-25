@@ -8,6 +8,15 @@ size = Vector3(0.1, 3, 0.1)
 [sub_resource type="BoxMesh" id="BoxMesh_ckr0i"]
 size = Vector3(0.1, 0.1, 0.1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_3ar0w"]
+size = Vector3(0.3, 1, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q1sko"]
+size = Vector3(0.40625, 1, 0.37329102)
+
+[sub_resource type="BoxMesh" id="BoxMesh_slkd2"]
+size = Vector3(0.6308594, 0.4638672, 0.57714844)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_jwlfg"]
 size = Vector3(0.1, 3, 0.1)
 
@@ -34,6 +43,18 @@ mesh = SubResource("BoxMesh_ckr0i")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 light_energy = 2.0
 spot_angle = 28.58196
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Visual" unique_id=950397050]
+transform = Transform3D(1, 0, 0, 0, 0.8361591, -0.54848695, 0, 0.54848695, 0.8361591, 0, 3.275725, 0.097824365)
+mesh = SubResource("BoxMesh_3ar0w")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Visual" unique_id=522781068]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_q1sko")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Visual" unique_id=375730416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2319336, 0)
+mesh = SubResource("BoxMesh_slkd2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1914572257]
 
