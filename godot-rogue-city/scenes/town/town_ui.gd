@@ -74,6 +74,9 @@ func create_button(structure: Structure):
 func on_structure_selected(structure: Structure) -> void:
 	selected_struct = structure
 	current_preview_struct = update_preview(structure)
+	var meshes = get_meshes(current_preview_struct)
+	for mesh:MeshInstance3D in meshes:
+		apply_overlay_material(mesh)
 
 func on_snapping_toggled(new_value: bool) -> void:
 	if new_value:
@@ -121,10 +124,7 @@ func apply_overlay_material(mesh: MeshInstance3D):
 	mesh.set_material_overlay(colliding_overlay_material)
 
 func hint_collision():
-	var meshes = get_meshes(current_preview_struct)
 	if current_preview_struct.can_place():
-		for mesh:MeshInstance3D in meshes:
-			apply_overlay_material(mesh)
+		colliding_overlay_material.set("shader_parameter/Alpha", 0.6)
 	else:
-		for mesh:MeshInstance3D in meshes:
-			mesh.material_overlay = null
+		colliding_overlay_material.set("shader_parameter/Alpha", 0.0)
