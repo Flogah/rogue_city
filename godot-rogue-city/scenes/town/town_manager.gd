@@ -39,17 +39,3 @@ func demolish_structure(target_structure:Node3D):
 	# load up the external data
 	# for struct in external data:
 		# build_structure(struct)
-
-# to extract just the mesh from a scene
-# could be useful for preview stuff
-# with a stylish shader on top
-func get_mesh(packed_scene):
-	var scene_state:SceneState = packed_scene.get_state()
-	for i in range(scene_state.get_node_count()):
-		if(scene_state.get_node_type(i) == "MeshInstance3D"):
-			for j in scene_state.get_node_property_count(i):
-				var prop_name = scene_state.get_node_property_name(i, j)
-				if prop_name == "mesh":
-					var prop_value = scene_state.get_node_property_value(i, j)
-					
-					return prop_value.duplicate()

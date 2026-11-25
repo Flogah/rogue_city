@@ -13,6 +13,8 @@ signal structure_selected(structure: Structure)
 
 @export var town_manager: TownManager
 
+@export var colliding_overlay_material: Material
+
 var selected_struct: Structure
 var current_preview_struct: StructureCollision
 var snapping = false
@@ -23,6 +25,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if selected_struct:
+		hint_collision()
 		var mouse_pos = CameraHelper.get_projected_mouse_position_flat()
 		if snapping:
 			position_preview_snapped(mouse_pos)
@@ -88,7 +91,6 @@ func update_preview(struct: Structure = null) -> Node3D:
 		selected_struct = null
 		return
 	var new_preview:StructureCollision = struct.model.instantiate()
-	new_preview.start_hinting()
 	preview_container.add_child(new_preview)
 	return new_preview
 
@@ -105,3 +107,24 @@ func rotate_preview(deg: float):
 func rotate_preview_snapped(deg: float):
 	rotate_preview(deg)
 	preview_node.rotation_degrees.y = snappedf(preview_node.rotation_degrees.y, 45.0)
+
+# to extract just the meshinstances from a scene
+func get_meshes(model_node:StructureCollision):
+	var mesh_instances:Array = []
+	var model_node_children: Array = model_node.visual.get_children()
+	for child in model_node_children:
+		if child is MeshInstance3D:
+			mesh_instances.append(child)
+	return mesh_instances
+
+func apply_overlay_material(mesh: MeshInstance3D):
+	mesh.set_material_overlay(colliding_overlay_material)
+
+func hint_collision():
+	var meshes = get_meshes(current_preview_struct)
+	if current_preview_struct.can_place():
+		for mesh:MeshInstance3D in meshes:
+			apply_overlay_material(mesh)
+	else:
+		for mesh:MeshInstance3D in meshes:
+			mesh.material_overlay = null

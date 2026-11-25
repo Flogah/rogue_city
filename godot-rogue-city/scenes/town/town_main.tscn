@@ -9,6 +9,13 @@
 [ext_resource type="Resource" uid="uid://bacbep3a5umuw" path="res://scenes/town/example_structures/bad_house.tres" id="4_fqux8"]
 [ext_resource type="Resource" uid="uid://bj2j8fd0fcerr" path="res://scenes/town/example_structures/bad_lamp.tres" id="4_qi7q3"]
 [ext_resource type="Script" uid="uid://dkqfx2tygnc0o" path="res://scripts/town_view_controller.gd" id="5_au723"]
+[ext_resource type="Shader" uid="uid://d1sc41jyv16bc" path="res://assets/shaders/colliding_overlay_shader.tres" id="7_s7fxu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2v2u7"]
+render_priority = 0
+shader = ExtResource("7_s7fxu")
+shader_parameter/Color = Color(1, 0, 0, 1)
+shader_parameter/Alpha = 0.6
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ifpyu"]
 
@@ -52,6 +59,7 @@ grid_label = NodePath("Control/GridLabel")
 preview_node = NodePath("../Preview")
 preview_container = NodePath("../Preview/Container")
 town_manager = NodePath("../TownManager")
+colliding_overlay_material = SubResource("ShaderMaterial_2v2u7")
 
 [node name="Control" type="Control" parent="TownUI" unique_id=1503074314]
 layout_mode = 3
