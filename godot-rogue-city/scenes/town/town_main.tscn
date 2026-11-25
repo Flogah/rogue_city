@@ -35,22 +35,22 @@ material = SubResource("StandardMaterial3D_3usxy")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="TownManager" type="Node" parent="." unique_id=152336717 node_paths=PackedStringArray("structures_parent", "preview_container", "preview_node")]
+[node name="TownManager" type="Node" parent="." unique_id=152336717 node_paths=PackedStringArray("structures_parent")]
 script = ExtResource("1_vshnw")
 structures_parent = NodePath("../Structures")
-preview_container = NodePath("../Preview/Container")
-preview_node = NodePath("../Preview")
 structure_inventory = Dictionary[ExtResource("3_3usxy"), int]({
 ExtResource("4_qi7q3"): 3,
 ExtResource("4_fqux8"): 3
 })
 
-[node name="TownUI" type="CanvasLayer" parent="." unique_id=2045560409 node_paths=PackedStringArray("struct_button_container", "grid_label", "town_manager")]
+[node name="TownUI" type="CanvasLayer" parent="." unique_id=2045560409 node_paths=PackedStringArray("struct_button_container", "grid_label", "preview_node", "preview_container", "town_manager")]
 script = ExtResource("3_dq2aj")
 struct_button_container = NodePath("Control/StructButtonContainer")
 test_button_struct = ExtResource("4_fqux8")
 button_template = ExtResource("3_jyo67")
 grid_label = NodePath("Control/GridLabel")
+preview_node = NodePath("../Preview")
+preview_container = NodePath("../Preview/Container")
 town_manager = NodePath("../TownManager")
 
 [node name="Control" type="Control" parent="TownUI" unique_id=1503074314]

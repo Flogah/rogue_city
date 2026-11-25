@@ -8,6 +8,8 @@ signal structure_selected(structure: Structure)
 @export var test_button_struct:  Structure
 @export var button_template: PackedScene
 @export var grid_label: Label
+@export var preview_node: Node3D
+@export var preview_container: Node3D
 
 @export var town_manager: TownManager
 
@@ -23,30 +25,29 @@ func _process(delta: float) -> void:
 	if selected_struct:
 		var mouse_pos = CameraHelper.get_projected_mouse_position_flat()
 		if snapping:
-			town_manager.position_preview_snapped(mouse_pos)
+			position_preview_snapped(mouse_pos)
 		else:
-			town_manager.position_preview(mouse_pos)
+			position_preview(mouse_pos)
 		
 		if Input.is_action_just_pressed("cancel"):
-			town_manager.update_preview()
-			selected_struct = null
+			update_preview()
 		
 		if snapping:
 			if Input.is_action_just_pressed("rotate_structure_left"):
-				town_manager.rotate_preview_snapped(45.0)
+				rotate_preview_snapped(45.0)
 			if Input.is_action_just_pressed("rotate_structure_right"):
-				town_manager.rotate_preview_snapped(-45.0)
+				rotate_preview_snapped(-45.0)
 		else:
 			if Input.is_action_pressed("rotate_structure_left"):
-				town_manager.rotate_preview(1.5)
+				rotate_preview(1.5)
 			if Input.is_action_pressed("rotate_structure_right"):
-				town_manager.rotate_preview(-1.5)
+				rotate_preview(-1.5)
 
 func _input(event: InputEvent) -> void:
 	if selected_struct:
-		if event.is_action_pressed("confirm") and !current_preview_struct.is_overlapping():
-			town_manager.build_structure(selected_struct)
-			selected_struct = null
+		if event.is_action_pressed("confirm") and !current_preview_struct.can_place():
+			town_manager.build_structure(selected_struct, preview_node.transform)
+			update_preview()
 		if event.is_action_pressed("toggle_snapping"):
 			snapping = !snapping
 			snapping_toggled.emit(snapping)
@@ -69,7 +70,7 @@ func create_button(structure: Structure):
 
 func on_structure_selected(structure: Structure) -> void:
 	selected_struct = structure
-	current_preview_struct = town_manager.update_preview(structure)
+	current_preview_struct = update_preview(structure)
 
 func on_snapping_toggled(new_value: bool) -> void:
 	if new_value:
@@ -78,3 +79,29 @@ func on_snapping_toggled(new_value: bool) -> void:
 	else:
 		grid_label.text = "GRID : AUS"
 		grid_label.set("theme_override_colors/font_color", Color.YELLOW)
+
+func update_preview(struct: Structure = null) -> Node3D:
+	for child in preview_container.get_children():
+		preview_container.remove_child(child)
+		child.queue_free()
+	if !struct:
+		selected_struct = null
+		return
+	var new_preview:StructureCollision = struct.model.instantiate()
+	new_preview.start_hinting()
+	preview_container.add_child(new_preview)
+	return new_preview
+
+func position_preview(pos: Vector3):
+	preview_node.global_position = pos
+
+func position_preview_snapped(pos: Vector3):
+	position_preview(pos)
+	preview_node.global_position = preview_node.global_position.snapped(Vector3.ONE)
+
+func rotate_preview(deg: float):
+	preview_node.rotation_degrees.y += deg
+
+func rotate_preview_snapped(deg: float):
+	rotate_preview(deg)
+	preview_node.rotation_degrees.y = snappedf(preview_node.rotation_degrees.y, 45.0)

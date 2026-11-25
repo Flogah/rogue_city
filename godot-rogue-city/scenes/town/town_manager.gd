@@ -2,8 +2,6 @@ class_name TownManager
 extends Node
 
 @export var structures_parent: Node3D
-@export var preview_container: Node3D
-@export var preview_node: Node3D
 # a list of all available structures
 # structure and amount of structures you have to build
 # if amount = 0, the structure should be hidden in the UI maybe?
@@ -16,42 +14,16 @@ extends Node
 # this should make it possible to access all relevant gameplay code of existing structures
 var built_structures_dict: Dictionary[Node3D, Structure]
 
-func build_structure(target_structure:Structure, target_transform: Transform3D = preview_node.transform) -> bool:
+func build_structure(target_structure:Structure, target_transform: Transform3D):
 	var struct_instance:Node3D = target_structure.model.instantiate()
 	structures_parent.add_child(struct_instance)
 	struct_instance.transform = target_transform
 	built_structures_dict[struct_instance] = target_structure
-	update_preview()
-	return true
 
 func demolish_structure(target_structure:Node3D):
 	if built_structures_dict.has(target_structure):
 		built_structures_dict.erase(target_structure)
 	target_structure.queue_free()
-
-func update_preview(struct: Structure = null) -> Node3D:
-	for child in preview_container.get_children():
-		preview_container.remove_child(child)
-		child.queue_free()
-	if !struct: return
-	var new_preview:StructureCollision = struct.model.instantiate()
-	new_preview.start_hinting()
-	preview_container.add_child(new_preview)
-	return new_preview
-
-func position_preview(pos: Vector3):
-	preview_node.global_position = pos
-
-func position_preview_snapped(pos: Vector3):
-	position_preview(pos)
-	preview_node.global_position = preview_node.global_position.snapped(Vector3.ONE)
-
-func rotate_preview(deg: float):
-	preview_node.rotation_degrees.y += deg
-
-func rotate_preview_snapped(deg: float):
-	rotate_preview(deg)
-	preview_node.rotation_degrees.y = snappedf(preview_node.rotation_degrees.y, 45.0)
 
 # i want to be able to save the built_structures_dict and then build it
 # probably needs a helper data structure
