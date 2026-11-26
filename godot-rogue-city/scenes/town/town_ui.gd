@@ -26,14 +26,19 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if selected_struct:
 		hint_collision()
-		var mouse_pos = CameraHelper.get_projected_mouse_position_flat()
+		var mouse_pos:Vector3 = Vector3.ZERO
+		if selected_struct.align_with_surface_normal:
+			mouse_pos = CameraHelper.get_projected_mouse_position()
+		else:
+			mouse_pos = CameraHelper.get_projected_mouse_position_flat()
+		
+		if Input.is_action_just_pressed("cancel"):
+			update_preview()
+		
 		if snapping:
 			position_preview_snapped(mouse_pos)
 		else:
 			position_preview(mouse_pos)
-		
-		if Input.is_action_just_pressed("cancel"):
-			update_preview()
 		
 		if snapping:
 			if Input.is_action_just_pressed("rotate_structure_left"):
@@ -92,6 +97,7 @@ func update_preview(struct: Structure = null) -> Node3D:
 		child.queue_free()
 	if !struct:
 		selected_struct = null
+		preview_node.global_transform = align_with_y(preview_node.global_transform, Vector3.UP)
 		return
 	var new_preview:StructureCollision = struct.model.instantiate()
 	preview_container.add_child(new_preview)
@@ -99,13 +105,19 @@ func update_preview(struct: Structure = null) -> Node3D:
 
 func position_preview(pos: Vector3):
 	preview_node.global_position = pos
+	if selected_struct.align_with_surface_normal:
+		var normal = CameraHelper.get_mouse_collision().normal
+		#Draw3d.line(CameraHelper.get_projected_mouse_position(), CameraHelper.get_projected_mouse_position() + normal * 2.0, Color.RED, 1)
+		#print(normal)
+		preview_node.global_transform = align_with_y(preview_node.global_transform, normal)
 
 func position_preview_snapped(pos: Vector3):
 	position_preview(pos)
 	preview_node.global_position = preview_node.global_position.snapped(Vector3.ONE)
 
 func rotate_preview(deg: float):
-	preview_node.rotation_degrees.y += deg
+	#preview_node.rotation_degrees.y += deg
+	preview_node.rotate(preview_node.global_transform.basis.y, deg_to_rad(deg))
 
 func rotate_preview_snapped(deg: float):
 	rotate_preview(deg)
@@ -128,3 +140,20 @@ func hint_collision():
 		colliding_overlay_material.set("shader_parameter/Alpha", 0.6)
 	else:
 		colliding_overlay_material.set("shader_parameter/Alpha", 0.0)
+
+func align_with_y(xform, new_y):
+	new_y = new_y.normalized()
+	if new_y.is_zero_approx():
+		return xform
+	
+	var ref_z = xform.basis.z.normalized()
+	if ref_z.is_zero_approx() or absf(ref_z.dot(new_y)) > 0.999:
+		ref_z = Vector3.FORWARD if absf(Vector3.FORWARD.dot(new_y)) < 0.999 else Vector3.RIGHT
+	
+	xform.basis.y = new_y
+	#xform.basis.x = -xform.basis.z.cross(new_y)
+	xform.basis.x = -ref_z.cross(new_y)
+	xform.basis.z = xform.basis.x.cross(new_y)
+	
+	xform.basis = xform.basis.orthonormalized()
+	return xform

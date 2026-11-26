@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://h75bbsf023ux"]
+
+[ext_resource type="Script" uid="uid://ddqdt7d3by6ss" path="res://scripts/town_data/structure_collision.gd" id="1_tgvlp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j0x1e"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ifpyu"]
+size = Vector3(0.33618164, 0.20898438, 0.6123047)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ribml"]
+size = Vector3(0.2998047, 0.25341797, 0.62677)
+
+[node name="WallLamp" type="Node3D" unique_id=482692994 node_paths=PackedStringArray("positioning_area", "visual")]
+script = ExtResource("1_tgvlp")
+positioning_area = NodePath("PositioningArea")
+visual = NodePath("Visual")
+
+[node name="Visual" type="Node3D" parent="." unique_id=75483592]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Visual" unique_id=630842844]
+transform = Transform3D(1, 0, 0, 0, -0.25346488, 0.9673446, 0, -0.9673446, -0.25346488, 0, 0.22893709, 0)
+mesh = SubResource("BoxMesh_j0x1e")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Visual/MeshInstance3D5" unique_id=112930535]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_energy = 2.0
+spot_angle = 28.58196
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1672875166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10449219, 0.19384766)
+mesh = SubResource("BoxMesh_ifpyu")
+
+[node name="PositioningArea" type="Area3D" parent="." unique_id=1351716481]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PositioningArea" unique_id=1359722873]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0041999817, 0.12670898, 0.18339539)
+shape = SubResource("BoxShape3D_ribml")
+disabled = true

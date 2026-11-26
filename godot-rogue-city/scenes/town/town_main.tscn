@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ccfq2eyl5m7jq" path="res://assets/textures/ProtoTex/Orange/texture_04.png" id="4_3usxy"]
 [ext_resource type="Resource" uid="uid://bacbep3a5umuw" path="res://scenes/town/example_structures/bad_house.tres" id="4_fqux8"]
 [ext_resource type="Resource" uid="uid://bj2j8fd0fcerr" path="res://scenes/town/example_structures/bad_lamp.tres" id="4_qi7q3"]
+[ext_resource type="Resource" uid="uid://b103cyfc6jstp" path="res://scenes/town/example_structures/bad_wall_lamp.tres" id="5_2v2u7"]
 [ext_resource type="Script" uid="uid://dkqfx2tygnc0o" path="res://scripts/town_view_controller.gd" id="5_au723"]
 [ext_resource type="Shader" uid="uid://d1sc41jyv16bc" path="res://assets/shaders/colliding_overlay_shader.tres" id="7_s7fxu"]
 
@@ -47,7 +48,8 @@ script = ExtResource("1_vshnw")
 structures_parent = NodePath("../Structures")
 structure_inventory = Dictionary[ExtResource("3_3usxy"), int]({
 ExtResource("4_qi7q3"): 3,
-ExtResource("4_fqux8"): 3
+ExtResource("4_fqux8"): 3,
+ExtResource("5_2v2u7"): 3
 })
 
 [node name="TownUI" type="CanvasLayer" parent="." unique_id=2045560409 node_paths=PackedStringArray("struct_button_container", "grid_label", "preview_node", "preview_container", "town_manager")]

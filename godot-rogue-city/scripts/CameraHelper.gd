@@ -48,7 +48,10 @@ func get_mouse_collision() -> Dictionary:
 	return get_viewport().get_camera_3d().get_world_3d().direct_space_state.intersect_ray(query)
 
 func get_projected_mouse_position() -> Vector3:
-	return get_mouse_collision().position
+	if get_mouse_collision():
+		return get_mouse_collision().position
+	else:
+		return Vector3.ZERO
 
 # this returns the COLLIDER, meaning the exact collision body
 # at the moment, structs are Node3D with a sub node collider
