@@ -7,7 +7,7 @@ extends Node
 # if amount = 0, the structure should be hidden in the UI maybe?
 # otherwise, needs a setup so players don't get overwhelmed by options on first build
 # ex: ANNO 1800 UI
-@export var structure_inventory: Dictionary[Structure, int]
+@export var structure_inventory: Dictionary[SuperStructure, int]
 
 # a list of the actually built structures as a dictionary
 # listed by Node3D (every structure has a unique node) and underlying structure.res

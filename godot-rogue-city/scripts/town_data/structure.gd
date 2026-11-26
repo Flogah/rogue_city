@@ -7,9 +7,6 @@ extends Resource
 @export var model: PackedScene
 @export var align_with_surface_normal: bool = false
 
-@export_subgroup("UI")
-@export var ui_image: Texture2D
-
 @export_subgroup("Gameplay")
 # list of applicable uprades to this structure
 # not sure yet if upgrades need to be individual or shared
