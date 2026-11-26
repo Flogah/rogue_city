@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://8f6pvnc6nu1e"]
 
 [ext_resource type="Script" uid="uid://myu4hyd0a0vu" path="res://scenes/town/town_manager.gd" id="1_vshnw"]
-[ext_resource type="Script" uid="uid://c4f21v2njmps0" path="res://scripts/town_data/structure.gd" id="3_3usxy"]
+[ext_resource type="Script" uid="uid://p53h627x84p0" path="res://scripts/town_data/super_structure.gd" id="2_2v2u7"]
+[ext_resource type="Resource" uid="uid://bsgu2qbi2ihfy" path="res://scenes/town/example_structures/super_house.tres" id="3_0ec0w"]
 [ext_resource type="Script" uid="uid://dkad3rj7dyab6" path="res://scenes/town/town_ui.gd" id="3_dq2aj"]
 [ext_resource type="PackedScene" uid="uid://bjdn5xh4qkexu" path="res://scenes/town/structure_button.tscn" id="3_jyo67"]
 [ext_resource type="Texture2D" uid="uid://brjcxe8mu4ml8" path="res://assets/textures/ProtoTex/Dark/texture_03.png" id="3_rr1kx"]
 [ext_resource type="Texture2D" uid="uid://ccfq2eyl5m7jq" path="res://assets/textures/ProtoTex/Orange/texture_04.png" id="4_3usxy"]
 [ext_resource type="Resource" uid="uid://bacbep3a5umuw" path="res://scenes/town/example_structures/bad_house.tres" id="4_fqux8"]
-[ext_resource type="Resource" uid="uid://bj2j8fd0fcerr" path="res://scenes/town/example_structures/bad_lamp.tres" id="4_qi7q3"]
-[ext_resource type="Resource" uid="uid://b103cyfc6jstp" path="res://scenes/town/example_structures/bad_wall_lamp.tres" id="5_2v2u7"]
+[ext_resource type="Resource" uid="uid://dib45bijkit2q" path="res://scenes/town/example_structures/super_lamps.tres" id="4_s1nk3"]
 [ext_resource type="Script" uid="uid://dkqfx2tygnc0o" path="res://scripts/town_view_controller.gd" id="5_au723"]
 [ext_resource type="Shader" uid="uid://d1sc41jyv16bc" path="res://assets/shaders/colliding_overlay_shader.tres" id="7_s7fxu"]
 
@@ -46,10 +46,9 @@ shadow_enabled = true
 [node name="TownManager" type="Node" parent="." unique_id=152336717 node_paths=PackedStringArray("structures_parent")]
 script = ExtResource("1_vshnw")
 structures_parent = NodePath("../Structures")
-structure_inventory = Dictionary[ExtResource("3_3usxy"), int]({
-ExtResource("4_qi7q3"): 3,
-ExtResource("4_fqux8"): 3,
-ExtResource("5_2v2u7"): 3
+structure_inventory = Dictionary[ExtResource("2_2v2u7"), int]({
+ExtResource("3_0ec0w"): 3,
+ExtResource("4_s1nk3"): 3
 })
 
 [node name="TownUI" type="CanvasLayer" parent="." unique_id=2045560409 node_paths=PackedStringArray("struct_button_container", "grid_label", "preview_node", "preview_container", "town_manager")]

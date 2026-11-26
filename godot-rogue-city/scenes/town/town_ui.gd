@@ -69,16 +69,16 @@ func load_structure_inventory():
 	for struct in town_manager.structure_inventory:
 		create_button(struct)
 
-func create_button(structure: Structure):
+func create_button(super_struct: SuperStructure):
 	var new_button:StructureButton = button_template.instantiate()
-	new_button.structure = structure
+	new_button.super_structure = super_struct
 	struct_button_container.add_child(new_button)
 	#new_button.pressed.connect(func(): structure_selected.emit(structure))
-	new_button.pressed.connect(on_structure_selected.bind(structure))
+	new_button.pressed.connect(on_structure_selected.bind(super_struct))
 
-func on_structure_selected(structure: Structure) -> void:
-	selected_struct = structure
-	current_preview_struct = update_preview(structure)
+func on_structure_selected(super_struct: SuperStructure) -> void:
+	selected_struct = super_struct.get_structure()
+	current_preview_struct = update_preview(super_struct.get_structure())
 	var meshes = get_meshes(current_preview_struct)
 	for mesh:MeshInstance3D in meshes:
 		apply_overlay_material(mesh)
