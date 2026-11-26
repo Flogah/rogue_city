@@ -88,6 +88,14 @@ toggle_snapping={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="terrain"
+3d_physics/layer_2="player"
+3d_physics/layer_3="enemy_bodies"
+3d_physics/layer_9="structure_placement_collision"
+3d_physics/layer_10="structure_influence"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

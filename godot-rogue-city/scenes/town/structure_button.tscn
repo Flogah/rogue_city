@@ -1,12 +1,10 @@
 [gd_scene format=3 uid="uid://bjdn5xh4qkexu"]
 
 [ext_resource type="Script" uid="uid://g4jaq2em51nq" path="res://scenes/town/structure_button.gd" id="1_356bt"]
-[ext_resource type="Resource" uid="uid://bacbep3a5umuw" path="res://scenes/town/example_structures/bad_house.tres" id="2_el3w2"]
 
 [node name="Button" type="Button" unique_id=1538501222 node_paths=PackedStringArray("structure_preview_image", "structure_label")]
 custom_minimum_size = Vector2(120, 0)
 script = ExtResource("1_356bt")
-structure = ExtResource("2_el3w2")
 structure_preview_image = NodePath("MarginContainer/VBoxContainer/StructurePreviewImage")
 structure_label = NodePath("MarginContainer/VBoxContainer/StructureLabel")
 

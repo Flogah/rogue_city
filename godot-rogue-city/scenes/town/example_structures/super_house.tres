@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SuperStructure" format=3 uid="uid://bsgu2qbi2ihfy"]
+
+[ext_resource type="Script" uid="uid://p53h627x84p0" path="res://scripts/town_data/super_structure.gd" id="1_y1ajt"]
+[ext_resource type="Script" uid="uid://c4f21v2njmps0" path="res://scripts/town_data/structure.gd" id="2_dmhhp"]
+[ext_resource type="Resource" uid="uid://bacbep3a5umuw" path="res://scenes/town/example_structures/bad_house.tres" id="3_rnwmu"]
+[ext_resource type="Texture2D" uid="uid://b8lngtukdc211" path="res://assets/textures/Sprites/BadHouse.png" id="4_f3rn8"]
+
+[resource]
+script = ExtResource("1_y1ajt")
+group_name = "House"
+structures = Array[ExtResource("2_dmhhp")]([ExtResource("3_rnwmu")])
+ui_image = ExtResource("4_f3rn8")
+metadata/_custom_type_script = "uid://p53h627x84p0"

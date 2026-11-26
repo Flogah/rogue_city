@@ -5,9 +5,7 @@ extends Resource
 
 @export_subgroup("Model")
 @export var model: PackedScene
-
-@export_subgroup("UI")
-@export var ui_image: Texture2D
+@export var align_with_surface_normal: bool = false
 
 @export_subgroup("Gameplay")
 # list of applicable uprades to this structure

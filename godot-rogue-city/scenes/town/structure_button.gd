@@ -1,7 +1,7 @@
 class_name StructureButton
 extends Button
 
-@export var structure: Structure
+@export var super_structure: SuperStructure
 
 @export var structure_preview_image: TextureRect
 @export var structure_label: Label
@@ -10,8 +10,8 @@ extends Button
 	#structure = new_structure
 
 func _ready() -> void:
-	if !structure:
+	if !super_structure:
 		return
 	
-	structure_preview_image.texture = structure.ui_image
-	structure_label.text = structure.s_name
+	structure_preview_image.texture = super_structure.ui_image
+	structure_label.text = super_structure.group_name
