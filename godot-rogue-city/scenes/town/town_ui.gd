@@ -113,10 +113,13 @@ func position_preview(pos: Vector3):
 
 func position_preview_snapped(pos: Vector3):
 	position_preview(pos)
-	preview_node.global_position = preview_node.global_position.snapped(Vector3.ONE)
+	# wall positioning doesn't work properly if snapped
+	# for future: create a new grid along the projected surface
+	if !selected_struct.align_with_surface_normal:
+		preview_node.global_position = preview_node.global_position.snapped(Vector3.ONE)
 
 func rotate_preview(deg: float):
-	#preview_node.rotation_degrees.y += deg
+	# rotate around the up, so it works no matter where the structure is pointing
 	preview_node.rotate(preview_node.global_transform.basis.y, deg_to_rad(deg))
 
 func rotate_preview_snapped(deg: float):
@@ -124,6 +127,7 @@ func rotate_preview_snapped(deg: float):
 	preview_node.rotation_degrees.y = snappedf(preview_node.rotation_degrees.y, 45.0)
 
 # to extract just the meshinstances from a scene
+# atm just to apply the preview shader
 func get_meshes(model_node:StructureCollision):
 	var mesh_instances:Array = []
 	var model_node_children: Array = model_node.visual.get_children()
@@ -133,6 +137,7 @@ func get_meshes(model_node:StructureCollision):
 	return mesh_instances
 
 func apply_overlay_material(mesh: MeshInstance3D):
+	# same instance between all overlay materials
 	mesh.set_material_overlay(colliding_overlay_material)
 
 func hint_collision():
@@ -142,16 +147,24 @@ func hint_collision():
 		colliding_overlay_material.set("shader_parameter/Alpha", 0.0)
 
 func align_with_y(xform, new_y):
+	# if new_y has length of 0, jolt will throw errors
 	new_y = new_y.normalized()
 	if new_y.is_zero_approx():
 		return xform
 	
 	var ref_z = xform.basis.z.normalized()
+	# if the new_y aligns with an axis (like with a straight wall), jolt throws errors
+	# also if it is too close to the previous angle, it will throw errors
 	if ref_z.is_zero_approx() or absf(ref_z.dot(new_y)) > 0.999:
-		ref_z = Vector3.FORWARD if absf(Vector3.FORWARD.dot(new_y)) < 0.999 else Vector3.RIGHT
+		# is the basis close to 0.0 or almost the same as the new basis?
+		if absf(Vector3.FORWARD.dot(new_y)) < 0.999:
+			# if it's almost forward, make it forward
+			ref_z = Vector3.FORWARD
+		else:
+			# default to pointing right
+			Vector3.RIGHT
 	
 	xform.basis.y = new_y
-	#xform.basis.x = -xform.basis.z.cross(new_y)
 	xform.basis.x = -ref_z.cross(new_y)
 	xform.basis.z = xform.basis.x.cross(new_y)
 	
