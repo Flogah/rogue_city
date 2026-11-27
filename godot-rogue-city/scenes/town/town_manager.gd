@@ -1,6 +1,8 @@
 class_name TownManager
 extends Node
 
+signal resources_changed #(resource, change, new_amount)
+
 @export var town_data:TownData
 @export var structures_parent: Node3D
 
@@ -20,7 +22,12 @@ func build_structure(target_structure:Structure, target_transform: Transform3D):
 
 func demolish_structure(target_structure:Node3D):
 	if built_structures_dict.has(target_structure):
+		var struct = built_structures_dict.get(target_structure)
 		built_structures_dict.erase(target_structure)
+		for superstruct:SuperStructure in town_data.town_resources.keys():
+			for structure in superstruct.structures:
+				if structure == struct:
+					add_resource(superstruct)
 	target_structure.queue_free()
 
 # i want to be able to save the built_structures_dict and then build it
@@ -44,7 +51,7 @@ func reload_structures():
 func get_resources() -> Dictionary:
 	return town_data.town_resources
 
-func spend_resource(supstruct: SuperStructure, amount: int) -> bool:
+func spend_resource(supstruct: SuperStructure, amount: int = 1) -> bool:
 	if !town_data.town_resources.has(supstruct):
 		return false
 	var result: int = town_data.town_resources.get(supstruct)
@@ -52,13 +59,15 @@ func spend_resource(supstruct: SuperStructure, amount: int) -> bool:
 	if result < 0:
 		return false
 	town_data.town_resources.set(supstruct, result)
+	resources_changed.emit()
 	return true
 
-func add_resource(supstruct: SuperStructure, amount: int) -> bool:
+func add_resource(supstruct: SuperStructure, amount: int = 1) -> bool:
 	if !town_data.town_resources.has(supstruct):
 		return false
 	var result: int = town_data.town_resources.get(supstruct)
 	result += amount
 	town_data.town_resources.set(supstruct, result)
+	resources_changed.emit()
 	return true
 	
