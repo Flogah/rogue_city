@@ -2,14 +2,7 @@ class_name TownManager
 extends Node
 
 @export var town_data:TownData
-
 @export var structures_parent: Node3D
-# a list of all available structures
-# structure and amount of structures you have to build
-# if amount = 0, the structure should be hidden in the UI maybe?
-# otherwise, needs a setup so players don't get overwhelmed by options on first build
-# ex: ANNO 1800 UI
-@export var structure_inventory: Dictionary[SuperStructure, int]
 
 # a list of the actually built structures as a dictionary
 # listed by Node3D (every structure has a unique node) and underlying structure.res
@@ -47,3 +40,25 @@ func reload_structures():
 	town_data.load_town()
 	for struct_data:StructureData in town_data.structures:
 		build_structure(struct_data.structure, struct_data.transform)
+
+func get_resources() -> Dictionary:
+	return town_data.town_resources
+
+func spend_resource(supstruct: SuperStructure, amount: int) -> bool:
+	if !town_data.town_resources.has(supstruct):
+		return false
+	var result: int = town_data.town_resources.get(supstruct)
+	result -= amount
+	if result < 0:
+		return false
+	town_data.town_resources.set(supstruct, result)
+	return true
+
+func add_resource(supstruct: SuperStructure, amount: int) -> bool:
+	if !town_data.town_resources.has(supstruct):
+		return false
+	var result: int = town_data.town_resources.get(supstruct)
+	result += amount
+	town_data.town_resources.set(supstruct, result)
+	return true
+	
