@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://8f6pvnc6nu1e"]
 
 [ext_resource type="Script" uid="uid://myu4hyd0a0vu" path="res://scenes/town/town_manager.gd" id="1_vshnw"]
+[ext_resource type="Resource" uid="uid://ds0vi2g5a2kvb" path="res://scripts/town_data/town_data_1.tres" id="2_0ec0w"]
 [ext_resource type="Script" uid="uid://p53h627x84p0" path="res://scripts/town_data/super_structure.gd" id="2_2v2u7"]
 [ext_resource type="Resource" uid="uid://bsgu2qbi2ihfy" path="res://scenes/town/example_structures/super_house.tres" id="3_0ec0w"]
 [ext_resource type="Script" uid="uid://dkad3rj7dyab6" path="res://scenes/town/town_ui.gd" id="3_dq2aj"]
@@ -45,6 +46,7 @@ shadow_enabled = true
 
 [node name="TownManager" type="Node" parent="." unique_id=152336717 node_paths=PackedStringArray("structures_parent")]
 script = ExtResource("1_vshnw")
+town_data = ExtResource("2_0ec0w")
 structures_parent = NodePath("../Structures")
 structure_inventory = Dictionary[ExtResource("2_2v2u7"), int]({
 ExtResource("3_0ec0w"): 3,
