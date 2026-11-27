@@ -8,8 +8,12 @@ extends Resource
 @export_subgroup("UI")
 @export var ui_image: Texture2D
 
-func get_structure():
-	return structures[0]
+func get_structure(collision:Dictionary = {}):
+	#print(collision)
+	if !adapt_structures_to_collider:
+		return structures[0]
+	if collision.is_empty():
+		return structures[0]
 	
 	#if structures.size() == 1:
 		#return structures[0]
@@ -19,10 +23,10 @@ func get_structure():
 	#else:
 		#return structures[0]
 	
-	#var normal:Vector3 = collision.normal
-	#var dot = normal.dot(Vector3.UP)
-	#print(dot)
-	#if dot > 0.99:
-		#return structures[0]
-	#else:
-		#return structures[1]
+	var normal:Vector3 = collision.normal
+	var dot = normal.dot(Vector3.UP)
+	print(dot)
+	if dot > 0.99:
+		return structures[0]
+	else:
+		return structures[1]

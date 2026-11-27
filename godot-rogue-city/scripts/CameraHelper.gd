@@ -39,6 +39,7 @@ func get_projected_mouse_position_flat() -> Vector3:
 
 # returns whatever collidable object the mouse is pointing at
 func get_mouse_collision(exclude: Array[RID] =[]) -> Dictionary:
+	#print(exclude)
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
 	var current_camera = get_viewport().get_camera_3d()
 	var ray_origin: Vector3 = current_camera.project_ray_origin(mouse_pos)
