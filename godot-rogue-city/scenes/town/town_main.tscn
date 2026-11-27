@@ -58,7 +58,7 @@ script = ExtResource("3_dq2aj")
 struct_button_container = NodePath("Control/StructButtonContainer")
 test_button_struct = ExtResource("4_fqux8")
 button_template = ExtResource("3_jyo67")
-grid_label = NodePath("Control/GridLabel")
+grid_label = NodePath("Control/VBoxContainer/GridLabel")
 preview_node = NodePath("../Preview")
 preview_container = NodePath("../Preview/Container")
 town_manager = NodePath("../TownManager")
@@ -83,12 +83,16 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="Label" type="Label" parent="TownUI/Control" unique_id=1574286541]
+[node name="VBoxContainer" type="VBoxContainer" parent="TownUI/Control" unique_id=228634206]
 layout_mode = 0
-offset_left = 37.0
-offset_top = 34.0
-offset_right = 373.0
-offset_bottom = 193.0
+offset_left = 30.0
+offset_top = 28.0
+offset_right = 282.0
+offset_bottom = 294.0
+
+[node name="Label" type="Label" parent="TownUI/Control/VBoxContainer" unique_id=1574286541]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "WASD - Kamera Bewegen
 Mausrad klick - Kamera Winkel
 Mausrad drehen - Zoom
@@ -97,13 +101,23 @@ Rechtsklick - Bau abbrechen
 QE - Gebäude drehen
 STRG - Umschalten zu Grid-Angleichung"
 
-[node name="GridLabel" type="Label" parent="TownUI/Control" unique_id=588547796]
-layout_mode = 0
-offset_left = 37.0
-offset_top = 221.0
-offset_right = 130.0
-offset_bottom = 247.0
+[node name="GridLabel" type="Label" parent="TownUI/Control/VBoxContainer" unique_id=588547796]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "GRID : AUS"
+
+[node name="Button_Save" type="Button" parent="TownUI/Control/VBoxContainer" unique_id=403912394]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "SICHERN"
+
+[node name="Button_Load" type="Button" parent="TownUI/Control/VBoxContainer" unique_id=921069813]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "LADEN
+"
 
 [node name="Structures" type="Node3D" parent="." unique_id=512387966]
 
