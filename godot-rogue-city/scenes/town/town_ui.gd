@@ -33,13 +33,20 @@ func _ready() -> void:
 	snapping_toggled.connect(on_snapping_toggled)
 
 func _process(delta: float) -> void:
-	if selected_struct:
-		hint_collision()
+	if selected_super_struct:
 		var mouse_pos:Vector3 = Vector3.ZERO
-		if selected_struct.align_with_surface_normal:
-			mouse_pos = CameraHelper.get_projected_mouse_position()
-		else:
-			mouse_pos = CameraHelper.get_projected_mouse_position_flat()
+		mouse_pos = CameraHelper.get_projected_mouse_position()
+		
+		if current_preview_struct:
+			var collision = CameraHelper.get_mouse_collision([current_preview_struct.static_collision.get_rid()])
+			if collision:
+				mouse_pos = collision.position
+			if selected_super_struct.adapt_structures_to_collider:
+				selected_struct = selected_super_struct.get_structure(collision)
+				update_preview(selected_struct)
+		
+			hint_collision()
+		
 		
 		if Input.is_action_just_pressed("cancel"):
 			update_preview()
@@ -61,7 +68,7 @@ func _process(delta: float) -> void:
 				rotate_preview(-1.5)
 
 func _input(event: InputEvent) -> void:
-	if selected_struct:
+	if selected_struct and current_preview_struct:
 		if event.is_action_pressed("confirm") and !current_preview_struct.can_place():
 			town_manager.build_structure(selected_struct, preview_node.transform)
 			town_manager.spend_resource(selected_super_struct)
@@ -89,10 +96,7 @@ func create_button(super_struct: SuperStructure):
 func on_structure_selected(super_struct: SuperStructure) -> void:
 	selected_super_struct = super_struct
 	selected_struct = super_struct.get_structure()
-	current_preview_struct = update_preview(super_struct.get_structure())
-	var meshes = get_meshes(current_preview_struct)
-	for mesh:MeshInstance3D in meshes:
-		apply_overlay_material(mesh)
+	update_preview(super_struct.get_structure())
 
 func on_snapping_toggled(new_value: bool) -> void:
 	if new_value:
@@ -102,7 +106,7 @@ func on_snapping_toggled(new_value: bool) -> void:
 		grid_label.text = "GRID : AUS"
 		grid_label.set("theme_override_colors/font_color", Color.YELLOW)
 
-func update_preview(struct: Structure = null) -> Node3D:
+func update_preview(struct: Structure = null):
 	for child in preview_container.get_children():
 		preview_container.remove_child(child)
 		child.queue_free()
@@ -113,7 +117,11 @@ func update_preview(struct: Structure = null) -> Node3D:
 		return
 	var new_preview:StructureCollision = struct.model.instantiate()
 	preview_container.add_child(new_preview)
-	return new_preview
+	current_preview_struct = new_preview
+	
+	var meshes = get_meshes(current_preview_struct)
+	for mesh:MeshInstance3D in meshes:
+		apply_overlay_material(mesh)
 
 func update_buttons():
 	var buttons = struct_button_container.get_children()
@@ -127,7 +135,7 @@ func update_buttons():
 func position_preview(pos: Vector3):
 	preview_node.global_position = pos
 	if selected_struct.align_with_surface_normal:
-		var normal = CameraHelper.get_mouse_collision().normal
+		var normal = CameraHelper.get_mouse_collision([current_preview_struct.static_collision.get_rid()]).normal
 		#Draw3d.line(CameraHelper.get_projected_mouse_position(), CameraHelper.get_projected_mouse_position() + normal * 2.0, Color.RED, 1)
 		#print(normal)
 		preview_node.global_transform = align_with_y(preview_node.global_transform, normal)

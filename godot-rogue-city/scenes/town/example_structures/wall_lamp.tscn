@@ -8,13 +8,17 @@ size = Vector3(0.1, 0.1, 0.1)
 [sub_resource type="BoxMesh" id="BoxMesh_ifpyu"]
 size = Vector3(0.33618164, 0.20898438, 0.6123047)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ifpyu"]
+size = Vector3(0.6098633, 0.19015503, 0.3408203)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ribml"]
 size = Vector3(0.2998047, 0.25341797, 0.62677)
 
-[node name="WallLamp" type="Node3D" unique_id=482692994 node_paths=PackedStringArray("positioning_area", "visual")]
+[node name="WallLamp" type="Node3D" unique_id=482692994 node_paths=PackedStringArray("positioning_area", "visual", "static_collision")]
 script = ExtResource("1_tgvlp")
 positioning_area = NodePath("PositioningArea")
 visual = NodePath("Visual")
+static_collision = NodePath("StaticBody3D")
 
 [node name="Visual" type="Node3D" parent="." unique_id=75483592]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
@@ -31,6 +35,12 @@ spot_angle = 28.58196
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Visual" unique_id=1672875166]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10449219, 0.19384766)
 mesh = SubResource("BoxMesh_ifpyu")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=874889926]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=916031574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19506836, 0.13664246, 0)
+shape = SubResource("BoxShape3D_ifpyu")
 
 [node name="PositioningArea" type="Area3D" parent="." unique_id=1351716481]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)

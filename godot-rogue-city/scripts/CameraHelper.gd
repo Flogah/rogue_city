@@ -38,13 +38,15 @@ func get_projected_mouse_position_flat() -> Vector3:
 	return Vector3.ZERO
 
 # returns whatever collidable object the mouse is pointing at
-func get_mouse_collision() -> Dictionary:
+func get_mouse_collision(exclude: Array[RID] =[]) -> Dictionary:
+	#print(exclude)
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
 	var current_camera = get_viewport().get_camera_3d()
 	var ray_origin: Vector3 = current_camera.project_ray_origin(mouse_pos)
 	var ray_direction: Vector3 = current_camera.project_ray_normal(mouse_pos)
 	var ray_end = ray_origin + ray_direction * 1000.0
-	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	# 257 is combined bitmask of 1 (collision mask terrain) and 256 (collision mask structure_placement_collision)
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end, 257, exclude)
 	return get_viewport().get_camera_3d().get_world_3d().direct_space_state.intersect_ray(query)
 
 func get_projected_mouse_position() -> Vector3:
