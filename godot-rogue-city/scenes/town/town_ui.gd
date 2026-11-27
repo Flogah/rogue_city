@@ -15,6 +15,7 @@ signal structure_selected(structure: Structure)
 
 @export var colliding_overlay_material: Material
 
+var selected_super_struct: SuperStructure
 var selected_struct: Structure
 var current_preview_struct: StructureCollision
 var snapping = false
@@ -23,6 +24,8 @@ var snapping = false
 @onready var button_load: Button = %Button_Load
 
 func _ready() -> void:
+	town_manager.resources_changed.connect(update_buttons)
+	
 	button_save.pressed.connect(func(): town_manager.backup_structures())
 	button_load.pressed.connect(func(): town_manager.reload_structures())
 	
@@ -61,6 +64,7 @@ func _input(event: InputEvent) -> void:
 	if selected_struct:
 		if event.is_action_pressed("confirm") and !current_preview_struct.can_place():
 			town_manager.build_structure(selected_struct, preview_node.transform)
+			town_manager.spend_resource(selected_super_struct)
 			update_preview()
 		if event.is_action_pressed("toggle_snapping"):
 			snapping = !snapping
@@ -72,7 +76,7 @@ func _input(event: InputEvent) -> void:
 				town_manager.demolish_structure(collider.get_parent())
 
 func load_structure_inventory():
-	for struct in town_manager.structure_inventory:
+	for struct in town_manager.get_resources():
 		create_button(struct)
 
 func create_button(super_struct: SuperStructure):
@@ -83,6 +87,7 @@ func create_button(super_struct: SuperStructure):
 	new_button.pressed.connect(on_structure_selected.bind(super_struct))
 
 func on_structure_selected(super_struct: SuperStructure) -> void:
+	selected_super_struct = super_struct
 	selected_struct = super_struct.get_structure()
 	current_preview_struct = update_preview(super_struct.get_structure())
 	var meshes = get_meshes(current_preview_struct)
@@ -102,12 +107,22 @@ func update_preview(struct: Structure = null) -> Node3D:
 		preview_container.remove_child(child)
 		child.queue_free()
 	if !struct:
+		selected_super_struct = null
 		selected_struct = null
 		preview_node.global_transform = align_with_y(preview_node.global_transform, Vector3.UP)
 		return
 	var new_preview:StructureCollision = struct.model.instantiate()
 	preview_container.add_child(new_preview)
 	return new_preview
+
+func update_buttons():
+	var buttons = struct_button_container.get_children()
+	for button in buttons:
+		button.pressed.disconnect(on_structure_selected)
+		button.queue_free()
+	var resources = town_manager.get_resources()
+	for sup:SuperStructure in resources.keys():
+		if resources.get(sup) > 0: create_button(sup)
 
 func position_preview(pos: Vector3):
 	preview_node.global_position = pos
