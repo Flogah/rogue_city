@@ -19,7 +19,13 @@ var selected_struct: Structure
 var current_preview_struct: StructureCollision
 var snapping = false
 
+@onready var button_save: Button = %Button_Save
+@onready var button_load: Button = %Button_Load
+
 func _ready() -> void:
+	button_save.pressed.connect(func(): town_manager.backup_structures())
+	button_load.pressed.connect(func(): town_manager.reload_structures())
+	
 	load_structure_inventory()
 	snapping_toggled.connect(on_snapping_toggled)
 

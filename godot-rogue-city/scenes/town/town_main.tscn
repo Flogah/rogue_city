@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://8f6pvnc6nu1e"]
 
 [ext_resource type="Script" uid="uid://myu4hyd0a0vu" path="res://scenes/town/town_manager.gd" id="1_vshnw"]
+[ext_resource type="Resource" uid="uid://ds0vi2g5a2kvb" path="res://scripts/town_data/town_data_1.tres" id="2_0ec0w"]
 [ext_resource type="Script" uid="uid://p53h627x84p0" path="res://scripts/town_data/super_structure.gd" id="2_2v2u7"]
 [ext_resource type="Resource" uid="uid://bsgu2qbi2ihfy" path="res://scenes/town/example_structures/super_house.tres" id="3_0ec0w"]
 [ext_resource type="Script" uid="uid://dkad3rj7dyab6" path="res://scenes/town/town_ui.gd" id="3_dq2aj"]
@@ -45,6 +46,7 @@ shadow_enabled = true
 
 [node name="TownManager" type="Node" parent="." unique_id=152336717 node_paths=PackedStringArray("structures_parent")]
 script = ExtResource("1_vshnw")
+town_data = ExtResource("2_0ec0w")
 structures_parent = NodePath("../Structures")
 structure_inventory = Dictionary[ExtResource("2_2v2u7"), int]({
 ExtResource("3_0ec0w"): 3,
@@ -56,7 +58,7 @@ script = ExtResource("3_dq2aj")
 struct_button_container = NodePath("Control/StructButtonContainer")
 test_button_struct = ExtResource("4_fqux8")
 button_template = ExtResource("3_jyo67")
-grid_label = NodePath("Control/GridLabel")
+grid_label = NodePath("Control/VBoxContainer/GridLabel")
 preview_node = NodePath("../Preview")
 preview_container = NodePath("../Preview/Container")
 town_manager = NodePath("../TownManager")
@@ -81,12 +83,16 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="Label" type="Label" parent="TownUI/Control" unique_id=1574286541]
+[node name="VBoxContainer" type="VBoxContainer" parent="TownUI/Control" unique_id=228634206]
 layout_mode = 0
-offset_left = 37.0
-offset_top = 34.0
-offset_right = 373.0
-offset_bottom = 193.0
+offset_left = 30.0
+offset_top = 28.0
+offset_right = 282.0
+offset_bottom = 294.0
+
+[node name="Label" type="Label" parent="TownUI/Control/VBoxContainer" unique_id=1574286541]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "WASD - Kamera Bewegen
 Mausrad klick - Kamera Winkel
 Mausrad drehen - Zoom
@@ -95,13 +101,23 @@ Rechtsklick - Bau abbrechen
 QE - Gebäude drehen
 STRG - Umschalten zu Grid-Angleichung"
 
-[node name="GridLabel" type="Label" parent="TownUI/Control" unique_id=588547796]
-layout_mode = 0
-offset_left = 37.0
-offset_top = 221.0
-offset_right = 130.0
-offset_bottom = 247.0
+[node name="GridLabel" type="Label" parent="TownUI/Control/VBoxContainer" unique_id=588547796]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "GRID : AUS"
+
+[node name="Button_Save" type="Button" parent="TownUI/Control/VBoxContainer" unique_id=403912394]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "SICHERN"
+
+[node name="Button_Load" type="Button" parent="TownUI/Control/VBoxContainer" unique_id=921069813]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "LADEN
+"
 
 [node name="Structures" type="Node3D" parent="." unique_id=512387966]
 
