@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b5lakwohbc7ml"]
+
+[ext_resource type="Script" uid="uid://b8vltefptbq40" path="res://scenes/dungon/dungeon_exit.gd" id="1_awrdl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ryoya"]
+size = Vector3(0.2, 0.6, 0.1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ryoya"]
+size = Vector3(0.6, 0.4, 0.1)
+
+[node name="DungeonExit" type="Area3D" unique_id=864594531]
+script = ExtResource("1_awrdl")
+
+[node name="mesh" type="Node3D" parent="." unique_id=857559254]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mesh" unique_id=51238818]
+mesh = SubResource("BoxMesh_ryoya")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="mesh" unique_id=1220432037]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("PrismMesh_ryoya")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

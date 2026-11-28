@@ -1,0 +1,381 @@
+[gd_scene format=3 uid="uid://bstuopf64qqxq"]
+
+[ext_resource type="Script" uid="uid://bi153wqibfwro" path="res://scenes/player/player.gd" id="1_dovo2"]
+[ext_resource type="PackedScene" uid="uid://dea12upbo0lts" path="res://scenes/camera/camera_arm.tscn" id="2_gmlin"]
+[ext_resource type="Script" uid="uid://bndffillcldh1" path="res://scripts/state_machine/state_machine.gd" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://de3y4eoyviinr" path="res://scenes/player/move_state.gd" id="4_p47bc"]
+[ext_resource type="Script" uid="uid://1phya3lnwvos" path="res://scenes/player/rolling.gd" id="5_p47bc"]
+[ext_resource type="Script" uid="uid://evrg8h5uubo1" path="res://scenes/player/attack_1.gd" id="6_0owmy"]
+[ext_resource type="Script" uid="uid://20b724lu3tts" path="res://scenes/player/attack_2.gd" id="7_5gtgg"]
+[ext_resource type="Script" uid="uid://dswi2y7hu5u2d" path="res://scenes/player/attack_3.gd" id="8_qek5x"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xgnvx"]
+radius = 0.2841797
+height = 1.7642212
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xgnvx"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="PrismMesh" id="PrismMesh_xgnvx"]
+size = Vector3(0.3, 0.6, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ifpyu"]
+size = Vector3(0.036865234, 1.1264954, 0.31225586)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ckr0i"]
+size = Vector3(0.1, 0.4, 0.1)
+
+[sub_resource type="Animation" id="Animation_p47bc"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Weapon:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.41248965, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Weapon:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.0462509, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/Weapon:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh/Weapon:rotation:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Mesh/Weapon:rotation:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Mesh/Weapon:rotation:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_75vfm"]
+resource_name = "attack_1"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Weapon:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.41248965, -0.25, 0, 0.25, 0, 0.41248965, -0.016666668, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.16666667)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Weapon:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1.0462509, -0.25, 0, 0.25, 0, 0.6906838, -0.016666668, 0.059261195, 0, 0),
+"times": PackedFloat32Array(0, 0.16666667)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/Weapon:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.32940286, -0.016666668, 0.05490048, 0, 0),
+"times": PackedFloat32Array(0, 0.16666667)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh/Weapon:rotation:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -1.4690632, -0.016666668, 0.24484387, 0, 0),
+"times": PackedFloat32Array(0, 0.16666667)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Mesh/Weapon:rotation:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.016666668, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.16666667)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Mesh/Weapon:rotation:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.016666668, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.16666667)
+}
+
+[sub_resource type="Animation" id="Animation_0owmy"]
+resource_name = "attack_2"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Weapon:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2),
+"points": PackedFloat32Array(0.41248965, -0.25, 0, 0.25, 0, 0.41248965, -0.017054984, 0, 0, 0, -0.47815165, -0.033722352, 0.14844023, 0, 0),
+"times": PackedFloat32Array(0, 0.1023299, 0.30466402)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Weapon:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2),
+"points": PackedFloat32Array(1.0462509, -0.25, 0, 0.25, 0, 1.0462509, -0.017054984, 0, 0, 0, 0.6254835, -0.033722352, 0.070127904, 0, 0),
+"times": PackedFloat32Array(0, 0.1023299, 0.30466402)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/Weapon:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.017054984, 0, 0, 0, -0.6361738, -0.033722352, 0.106028974, 0, 0),
+"times": PackedFloat32Array(0, 0.1023299, 0.30466402)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh/Weapon:rotation:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -7.1709407e-09, -0.017054984, 1.1951569e-09, 0, 0, -0.1064183, -0.033722352, 0.017736383, 0, 0),
+"times": PackedFloat32Array(0, 0.1023299, 0.30466402)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Mesh/Weapon:rotation:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -1.0157989, -0.017054984, 0.16929983, 0, 0, 2.42818, -0.033722352, -0.57399654, 0, 0),
+"times": PackedFloat32Array(0, 0.1023299, 0.30466402)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Mesh/Weapon:rotation:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -1.2959516, -0.017054984, 0.21599194, 0, 0, -1.7848837, -0.033722352, 0.08148869, 0, 0),
+"times": PackedFloat32Array(0, 0.1023299, 0.30466402)
+}
+
+[sub_resource type="Animation" id="Animation_qek5x"]
+resource_name = "attack_3"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Weapon:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 2),
+"points": PackedFloat32Array(0.41248965, -0.25, 0, 0.25, 0, 0.046601117, -0.0049908124, 0, 0, 0, 0.046601117, -0.00038761337, 0, 0, 0, 0.046601117, -0.027075281, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.2, 0.43333334, 0.595785)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Weapon:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 2),
+"points": PackedFloat32Array(1.0462509, -0.25, 0, 0.25, 0, 2.0569, -0.0049908124, 0.033703487, 0, 0, 2.259121, -0.00038761337, 0.09051117, 0, 0, 0.3732651, -0.027075281, 0.31430933, 0, 0),
+"times": PackedFloat32Array(0, 0.2, 0.43333334, 0.595785)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/Weapon:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.2518876, -0.0049908124, -0.039615557, 0, 0, 0.01419425, -0.00038761337, -0.024569314, 0, 0, -1.2807697, -0.027075281, 0.21582733, 0, 0),
+"times": PackedFloat32Array(0, 0.2, 0.43333334, 0.595785)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh/Weapon:rotation:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1.3285685, -0.0049908124, -0.13205136, 0, 0, 0.5362603, -0.00038761337, 0, 0, 0, -1.716818, -0.027075281, 0.37551305, 0, 0),
+"times": PackedFloat32Array(0, 0.2, 0.43333334, 0.595785)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Mesh/Weapon:rotation:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.0049908124, 0, 0, 0, 0, -0.00038761337, 0, 0, 0, 0, -0.027075281, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.2, 0.43333334, 0.595785)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Mesh/Weapon:rotation:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.0049908124, 0, 0, 0, 0, -0.00038761337, 0, 0, 0, 0, -0.027075281, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.2, 0.43333334, 0.595785)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5gtgg"]
+_data = {
+&"RESET": SubResource("Animation_p47bc"),
+&"attack_1": SubResource("Animation_75vfm"),
+&"attack_2": SubResource("Animation_0owmy"),
+&"attack_3": SubResource("Animation_qek5x")
+}
+
+[node name="Player" type="CharacterBody3D" unique_id=1494987689]
+collision_layer = 2
+script = ExtResource("1_dovo2")
+
+[node name="Camera_Arm" parent="." unique_id=1807282293 instance=ExtResource("2_gmlin")]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=686471291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8778564, 0)
+shape = SubResource("CapsuleShape3D_xgnvx")
+
+[node name="Mesh" type="Node3D" parent="." unique_id=2088496810]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh" unique_id=1304950828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8949837, 0)
+mesh = SubResource("CapsuleMesh_xgnvx")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh" unique_id=1141002807]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.5875686, -0.29023463)
+mesh = SubResource("PrismMesh_xgnvx")
+
+[node name="Weapon" type="Node3D" parent="Mesh" unique_id=766888997]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0.41248965, 1.0462509, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh/Weapon" unique_id=1189576977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.71634245, 0)
+mesh = SubResource("BoxMesh_ifpyu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh/Weapon" unique_id=1328855417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.044085383, 0)
+mesh = SubResource("BoxMesh_ckr0i")
+
+[node name="MovementStateMachine" type="Node" parent="." unique_id=1450202359 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_lvxji")
+initial_state = NodePath("Moving")
+
+[node name="Moving" type="Node" parent="MovementStateMachine" unique_id=92557771 node_paths=PackedStringArray("player", "animation_player")]
+script = ExtResource("4_p47bc")
+player = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+state_id = &"moving"
+
+[node name="Rolling" type="Node" parent="MovementStateMachine" unique_id=1717503852 node_paths=PackedStringArray("player")]
+script = ExtResource("5_p47bc")
+player = NodePath("../..")
+state_id = &"rolling"
+
+[node name="Attack_1" type="Node" parent="MovementStateMachine" unique_id=1770466310 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("6_0owmy")
+animation_player = NodePath("../../AnimationPlayer")
+state_id = &"attack1"
+metadata/_custom_type_script = "uid://yt3ipdhqpsng"
+
+[node name="Attack_2" type="Node" parent="MovementStateMachine" unique_id=480477957 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("7_5gtgg")
+animation_player = NodePath("../../AnimationPlayer")
+state_id = &"attack2"
+metadata/_custom_type_script = "uid://yt3ipdhqpsng"
+
+[node name="Attack_3" type="Node" parent="MovementStateMachine" unique_id=1647723403 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("8_qek5x")
+animation_player = NodePath("../../AnimationPlayer")
+state_id = &"attack3"
+metadata/_custom_type_script = "uid://yt3ipdhqpsng"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1175961968]
+libraries/ = SubResource("AnimationLibrary_5gtgg")

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cboo5ve78q0m0"]
+
+[ext_resource type="Texture2D" uid="uid://brjcxe8mu4ml8" path="res://assets/textures/ProtoTex/Dark/texture_03.png" id="1_ehfjd"]
+[ext_resource type="PackedScene" uid="uid://bstuopf64qqxq" path="res://scenes/player/player.tscn" id="2_4833m"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mmv1r"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_h1ley"]
+sky_material = SubResource("ProceduralSkyMaterial_mmv1r")
+
+[sub_resource type="Environment" id="Environment_0w3ay"]
+background_mode = 2
+sky = SubResource("Sky_h1ley")
+glow_enabled = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_31vqp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckr0i"]
+albedo_texture = ExtResource("1_ehfjd")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yr0ja"]
+material = SubResource("StandardMaterial3D_ckr0i")
+size = Vector2(200, 200)
+
+[node name="Dojo" type="Node3D" unique_id=175178061]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=323893251]
+environment = SubResource("Environment_0w3ay")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1656334448]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Terrain" type="Node3D" parent="." unique_id=1657438301]
+
+[node name="Floor" type="StaticBody3D" parent="Terrain" unique_id=300752780]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/Floor" unique_id=2135676438]
+visible = false
+shape = SubResource("WorldBoundaryShape3D_31vqp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/Floor" unique_id=973164548]
+mesh = SubResource("PlaneMesh_yr0ja")
+
+[node name="Player" parent="." unique_id=1494987689 instance=ExtResource("2_4833m")]
