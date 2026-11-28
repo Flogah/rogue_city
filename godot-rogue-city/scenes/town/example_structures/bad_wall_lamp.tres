@@ -2,12 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://h75bbsf023ux" path="res://scenes/town/example_structures/wall_lamp.tscn" id="1_xx4fp"]
 [ext_resource type="Script" uid="uid://c4f21v2njmps0" path="res://scripts/town_data/structure.gd" id="2_ni6d0"]
-[ext_resource type="Texture2D" uid="uid://byswrvnltg2tv" path="res://assets/textures/Sprites/BadLamp.png" id="3_an17d"]
 
 [resource]
 script = ExtResource("2_ni6d0")
 s_name = "Wall Lamp"
 model = ExtResource("1_xx4fp")
 align_with_surface_normal = true
-ui_image = ExtResource("3_an17d")
 metadata/_custom_type_script = "uid://c4f21v2njmps0"

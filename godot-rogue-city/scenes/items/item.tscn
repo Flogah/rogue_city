@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dwr5muwxrk3pu"]
+
+[ext_resource type="Script" uid="uid://fi5yo8ve22td" path="res://scenes/items/item.gd" id="1_xhhhv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ryoya"]
+
+[node name="Item" type="Area3D" unique_id=975962906]
+collision_mask = 3
+script = ExtResource("1_xhhhv")
+
+[node name="mesh" type="Node3D" parent="." unique_id=764533125]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="mesh" unique_id=2043130726]
+transform = Transform3D(0.14142136, -0.14142136, 0, 0.099999994, 0.099999994, -0.14142136, 0.099999994, 0.099999994, 0.14142136, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1432614213]
+shape = SubResource("SphereShape3D_ryoya")
