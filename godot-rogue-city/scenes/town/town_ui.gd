@@ -24,6 +24,8 @@ var snapping = false
 @onready var button_load: Button = %Button_Load
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
 	town_manager.resources_changed.connect(update_buttons)
 	
 	button_save.pressed.connect(func(): town_manager.backup_structures())
